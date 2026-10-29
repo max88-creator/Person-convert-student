@@ -11,7 +11,6 @@ composeBom = "2026.02.01"
 room = "2.8.5"
 ksp = "2.3.10"
 
-
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -22,11 +21,9 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 
-#Room
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-
 
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -40,4 +37,3 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-
