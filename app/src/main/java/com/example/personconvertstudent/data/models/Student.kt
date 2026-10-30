@@ -1,4 +1,4 @@
-package com.example.personconvertstudent.data
+package com.example.personconvertstudent.data.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -20,5 +20,3 @@ data class Student(
     val personId: Int = 0,
     val specialization: String
 )
-
-

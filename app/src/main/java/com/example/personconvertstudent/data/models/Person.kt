@@ -1,4 +1,4 @@
-package com.example.personconvertstudent.data
+package com.example.personconvertstudent.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +10,3 @@ data class Person(
     val name: String,
     val age: Int
 )
-
-
-
