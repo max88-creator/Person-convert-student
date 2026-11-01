@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PersonDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertPerson(item: Person): Long
     @Query("DELETE FROM persons WHERE id = :id")
     suspend fun deletePerson(id: Int): Int

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class PersonRepoImpl @Inject constructor(
     private val dao: PersonDao
-) : PersonRepository {
+): PersonRepository {
     override suspend fun insertPerson(item: Person): Long {
         return dao.insertPerson(item)
     }

@@ -29,7 +29,8 @@ class PersonViewModel @Inject constructor(
 
     fun addPerson(item: Person) {
         viewModelScope.launch {
-            repository.insertPerson(item)
+            val insertedId = repository.insertPerson(item)
+            android.util.Log.d("PersonViewModel", "Inserted ID: $insertedId")
         }
     }
 
