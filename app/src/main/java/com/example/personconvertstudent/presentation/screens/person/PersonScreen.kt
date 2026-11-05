@@ -42,9 +42,7 @@ fun PersonScreen(
         mutableStateOf<Person?>(null)
     }
 
-    var specialization by remember {
-        mutableStateOf("")
-    }
+
 
     var name by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
@@ -55,40 +53,7 @@ fun PersonScreen(
         mutableStateOf(false)
     }
 
-    fun onEvent(event: PersonEvent) {
-        when (event) {
-            is PersonEvent.OnStudentClick -> {
-                selectedPerson = event.person
-                specialization = ""
-                showStudentDialog = true
-            }
 
-            is PersonEvent.OnDismissDialog -> {
-                showStudentDialog = false
-            }
-
-            is PersonEvent.OnSpecializationChange -> {
-                specialization = event.specialization
-            }
-
-            is PersonEvent.OnCreateStudent -> {
-                val person = selectedPerson
-
-                if (person != null && specialization.isNotBlank()) {
-                    studentViewModel.addStudent(
-                        Student(
-                            personId = person.id,
-                            specialization = specialization.trim()
-                        )
-                    )
-
-                    showStudentDialog = false
-                    selectedPerson = null
-                    specialization = ""
-                }
-            }
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -138,59 +103,12 @@ fun PersonScreen(
                     name = person.name,
                     age = person.age.toString(),
                     onStudentClick = {
-                        onEvent(PersonEvent.OnStudentClick(person))
+                        viewModel.onEvent(PersonEvent.OnStudentClick(person))
                     }
                 )
                 Spacer(modifier = Modifier.height(9.dp))
             }
         }
-    }
-    if (showStudentDialog) {
-        AlertDialog(
-            onDismissRequest = {
-                onEvent(PersonEvent.OnDismissDialog)
-            },
-            title = {
-                Text("Создать студента")
-            },
-            text = {
-                Column {
-                    Text("Человек: ${selectedPerson?.name.orEmpty()}")
-
-                    OutlinedTextField(
-                        value = specialization,
-                        onValueChange = {
-                            onEvent(
-                                PersonEvent.OnSpecializationChange(it)
-                            )
-                        },
-                        label = {
-                            Text("Специализация")
-                        }
-                    )
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onEvent(PersonEvent.OnCreateStudent)
-                    },
-                    enabled = selectedPerson != null &&
-                            specialization.isNotBlank()
-                ) {
-                    Text("Создать")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        onEvent(PersonEvent.OnDismissDialog)
-                    }
-                ) {
-                    Text("Отмена")
-                }
-            }
-        )
     }
 }
 

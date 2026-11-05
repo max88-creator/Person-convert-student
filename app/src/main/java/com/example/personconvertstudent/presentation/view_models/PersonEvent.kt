@@ -5,7 +5,7 @@ import com.example.personconvertstudent.data.models.Person
 sealed interface PersonEvent {
     data class OnStudentClick(
         val person: Person
-    ) : PersonEvent
+    ): PersonEvent
 
     data object OnDismissDialog : PersonEvent
 
