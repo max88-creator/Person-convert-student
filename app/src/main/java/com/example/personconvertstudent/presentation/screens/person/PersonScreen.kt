@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,14 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.personconvertstudent.data.models.Person
-import com.example.personconvertstudent.data.models.Student
-import com.example.personconvertstudent.presentation.view_models.PersonEvent
+import com.example.personconvertstudent.dialog.DialogEvent
+import com.example.personconvertstudent.dialog.MainDialog
 import com.example.personconvertstudent.presentation.view_models.PersonViewModel
 import com.example.personconvertstudent.presentation.view_models.StudentViewModel
 
 @Composable
 fun PersonScreen(
     modifier: Modifier = Modifier,
+    onStudentNavigateClick: () -> Unit,
     viewModel: PersonViewModel = hiltViewModel(),
 ) {
     val people by viewModel.getAllPeople.collectAsState()
@@ -71,7 +70,7 @@ fun PersonScreen(
             onValueChange = { age = it },
             label = { Text("Возраст") }
         )
-
+        Spacer(modifier = Modifier.height(9.dp))
         Button(
             onClick = {
                 val parsedAge = age.toIntOrNull()
@@ -103,10 +102,13 @@ fun PersonScreen(
                     name = person.name,
                     age = person.age.toString(),
                     onStudentClick = {
-                        viewModel.onEvent(PersonEvent.OnStudentClick(person))
+                        viewModel.onEvent(DialogEvent.OnStudentClick(
+                            person = person
+                        ))
                     }
                 )
                 Spacer(modifier = Modifier.height(9.dp))
+                MainDialog(viewModel)
             }
         }
     }

@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.personconvertstudent.navigation.NavGraph
 import com.example.personconvertstudent.presentation.screens.person.PersonScreen
 import com.example.personconvertstudent.ui.theme.PersonConvertStudentTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +24,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             PersonConvertStudentTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PersonScreen(
-                        modifier = Modifier.padding(innerPadding)
+                    NavGraph(
+                        modifier = Modifier
+                            .padding(innerPadding)
                     )
                 }
             }
