@@ -36,43 +36,6 @@ class PersonViewModel @Inject constructor(
     override var showEditableText: MutableState<Boolean> = mutableStateOf(false)
         private set
 
-    override fun onDialogEvent(event: DialogEvent) {
-//        when (event) {
-//            is DialogEvent.OnCancel -> {
-//                openDialog.value = false
-//            }
-//
-//            is DialogEvent.OnConfirm -> {
-//                val person = selectedPerson
-//                val specialization = editableText.value.trim()
-//                if (editableText.value.isNotEmpty()) {
-//                  viewModelScope.launch {
-//                      studentRepository.insertStudent(
-//                          item = Student(
-//                              personId = person?.id ?: 0,
-//                              specialization = specialization
-//                          )
-//                      )
-//                  }
-//                }
-//                selectedPerson = null
-//                editableText.value = ""
-//                openDialog.value = false
-//            }
-//
-//            is DialogEvent.OnTextChange -> {
-//                editableText.value = event.text
-//            }
-//
-//           is DialogEvent.OnStudentClick -> {
-//               selectedPerson = event.person
-//               editableText.value = ""
-//               dialogTitle.value = "Создать студента для ${event.person.name}"
-//               openDialog.value = true
-//           }
-//        }
-        onEvent(event)
-    }
 
     var specialization = MutableStateFlow("")
     val getAllPeople: StateFlow<List<Person>> =
@@ -90,6 +53,18 @@ class PersonViewModel @Inject constructor(
         }
     }
 
+    fun incrAge(id: Int) {
+        viewModelScope.launch {
+            repository.incrAge(id)
+        }
+    }
+
+    fun decrAge(id: Int) {
+        viewModelScope.launch {
+            repository.decrAge(id)
+        }
+    }
+
     fun deletePerson(id: Int) {
         viewModelScope.launch {
             repository.deletePerson(id)
@@ -102,7 +77,7 @@ class PersonViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: DialogEvent) {
+   override fun onDialogEvent(event: DialogEvent) {
         when (event) {
             is DialogEvent.OnStudentClick -> {
                 selectedPerson = event.person

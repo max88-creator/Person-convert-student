@@ -21,7 +21,6 @@ import com.example.personconvertstudent.presentation.view_models.StudentViewMode
 
 @Composable
 fun StudentScreen(
-
     studentViewModel: StudentViewModel = hiltViewModel(),
     onPeopleListNavigate: () -> Unit
 ) {

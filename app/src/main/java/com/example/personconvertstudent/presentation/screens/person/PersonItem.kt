@@ -1,6 +1,7 @@
 package com.example.personconvertstudent.presentation.screens.person
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,9 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.personconvertstudent.R
 import com.example.personconvertstudent.ui.theme.Rusty1
+import com.example.personconvertstudent.ui.theme.SongName
 import com.example.personconvertstudent.ui.theme.VeryDarkPrimary
 
 @Composable
@@ -28,8 +32,8 @@ fun PersonItem(
     name: String,
     age: String,
     onStudentClick: () -> Unit,
-//    onDecrement: () -> Unit,
-//    onIncrement: () -> Unit,
+    onDecrement: () -> Unit,
+    onIncrement: () -> Unit,
 
 ) {
     Box(
@@ -64,28 +68,28 @@ fun PersonItem(
                     text = age
                 )
                 Spacer(modifier = Modifier.width(55.dp))
-//                Text(
-//                    text = "Decr",
-//                    fontSize = 17.sp,
-//                    fontWeight = FontWeight(800),
-//                    color = SongName,
-//                    modifier = Modifier
-//                        .clickable {
-//                            onDecrement()
-//                        },
-//
-//                    )
-//                Spacer(modifier = Modifier.width(11.dp))
-//                Text(
-//                    text = "Incr",
-//                    fontSize = 17.sp,
-//                    fontWeight = FontWeight(800),
-//                    color = SongName,
-//                    modifier = Modifier
-//                        .clickable {
-//                            onIncrement()
-//                        }
-//                )
+                Text(
+                    text = "Decr",
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight(800),
+                    color = SongName,
+                    modifier = Modifier
+                        .clickable {
+                            onDecrement()
+                        },
+
+                    )
+                Spacer(modifier = Modifier.width(11.dp))
+                Text(
+                    text = "Incr",
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight(800),
+                    color = SongName,
+                    modifier = Modifier
+                        .clickable {
+                            onIncrement()
+                        }
+                )
                 Spacer(modifier = Modifier.width(75.dp))
                 IconButton(
                     onClick = {

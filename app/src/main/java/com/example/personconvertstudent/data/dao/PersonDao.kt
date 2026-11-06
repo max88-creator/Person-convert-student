@@ -15,6 +15,13 @@ interface PersonDao {
     suspend fun deletePerson(id: Int): Int
     @Query("SELECT * FROM persons")
     fun getAllPeople(): Flow<List<Person>>
+
+    @Query("UPDATE persons SET age = age + 1 WHERE id = :id")
+    suspend fun incrementAge(id: Int)
+
+    @Query("UPDATE persons SET age = age - 1 WHERE id = :id")
+    suspend fun decrementAge(id: Int)
+
     @Query("UPDATE persons SET age = :newAge WHERE id = :personId")
     suspend fun updateAge(newAge: Int, personId: Int): Int
 }

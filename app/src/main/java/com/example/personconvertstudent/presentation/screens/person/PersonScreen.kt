@@ -102,10 +102,14 @@ fun PersonScreen(
                     name = person.name,
                     age = person.age.toString(),
                     onStudentClick = {
-                        viewModel.onEvent(DialogEvent.OnStudentClick(
-                            person = person
-                        ))
-                    }
+                        viewModel.onDialogEvent(
+                            DialogEvent.OnStudentClick(
+                                person = person
+                            )
+                        )
+                    },
+                    onDecrement = { viewModel.decrAge(person.id) },
+                    onIncrement = { viewModel.incrAge(person.id) },
                 )
                 Spacer(modifier = Modifier.height(9.dp))
                 MainDialog(viewModel)
@@ -114,26 +118,3 @@ fun PersonScreen(
     }
 }
 
-
-
-
-//        Button(
-//            onClick = {
-//                val person = selectedPerson
-//
-//                if (person != null && specialization.isNotBlank()) {
-//                    studentViewModel.addStudent(
-//                        Student(
-//                            personId = person.id,
-//                            specialization = specialization.trim()
-//                        )
-//                    )
-//
-//                    selectedPerson = null
-//                    specialization = ""
-//                }
-//            },
-//            enabled = selectedPerson != null && specialization.isNotBlank()
-//        ) {
-//            Text("Создать студента")
-//        }
