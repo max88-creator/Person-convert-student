@@ -30,6 +30,18 @@ class StudentViewModel @Inject constructor(
         }
     }
 
+    fun incrAge(id: Int) {
+        viewModelScope.launch {
+            repository.incrAge(id)
+        }
+    }
+
+    fun decrAge(id: Int) {
+        viewModelScope.launch {
+            repository.decrAge(id)
+        }
+    }
+
     fun deleteStudent(id: Int) {
         viewModelScope.launch {
             repository.deleteStudent(id)

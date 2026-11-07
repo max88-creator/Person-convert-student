@@ -25,6 +25,7 @@ import com.example.personconvertstudent.dialog.DialogEvent
 import com.example.personconvertstudent.dialog.MainDialog
 import com.example.personconvertstudent.presentation.view_models.PersonViewModel
 import com.example.personconvertstudent.presentation.view_models.StudentViewModel
+import com.example.personconvertstudent.utils.custom_swipe.PersonSwipe
 
 @Composable
 fun PersonScreen(
@@ -33,26 +34,8 @@ fun PersonScreen(
     viewModel: PersonViewModel = hiltViewModel(),
 ) {
     val people by viewModel.getAllPeople.collectAsState()
-
-    val studentViewModel: StudentViewModel = hiltViewModel()
-
-
-    var selectedPerson by remember {
-        mutableStateOf<Person?>(null)
-    }
-
-
-
     var name by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
-
-
-
-    var showStudentDialog by remember {
-        mutableStateOf(false)
-    }
-
-
 
     Column(
         modifier = Modifier
@@ -96,25 +79,28 @@ fun PersonScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            items(people)
+            items(
+                people,
+                key = { person -> person.id }
+            )
             { person ->
-                PersonItem(
-                    name = person.name,
-                    age = person.age.toString(),
-                    onStudentClick = {
-                        viewModel.onDialogEvent(
-                            DialogEvent.OnStudentClick(
-                                person = person
-                            )
-                        )
-                    },
-                    onDecrement = { viewModel.decrAge(person.id) },
-                    onIncrement = { viewModel.incrAge(person.id) },
-                )
+              PersonSwipe(
+                  person = person,
+                  onDelete = { viewModel.deletePerson(person.id) },
+                  onStudentClick = { viewModel.onDialogEvent(
+                      DialogEvent.OnStudentClick(
+                          person = person
+                      )
+                  )},
+                  onDecrement = {viewModel.decrAge(person.id)},
+                  onIncrement = {viewModel.incrAge(person.id)}
+              )
                 Spacer(modifier = Modifier.height(9.dp))
-                MainDialog(viewModel)
             }
         }
+        MainDialog(viewModel, onStudentNavigate = { onStudentNavigateClick() })
     }
 }
+
+
 

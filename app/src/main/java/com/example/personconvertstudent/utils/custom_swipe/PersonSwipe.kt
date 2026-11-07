@@ -2,16 +2,18 @@ package com.example.personconvertstudent.utils.custom_swipe
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -29,14 +31,21 @@ fun PersonSwipe(
 ) {
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
-            if (value == SwipeToDismissBoxValue.EndToStart) {
-                onDelete()
-                true
-            } else {
-                false
-            }
+            value == SwipeToDismissBoxValue.EndToStart
         }
     )
+
+    LaunchedEffect(dismissState.currentValue) {
+        if (
+            dismissState.currentValue ==
+            SwipeToDismissBoxValue.EndToStart
+            ) {
+            onDelete()
+        }
+    }
+
+    val progress = dismissState.progress
+
 
     SwipeToDismissBox(
         state = dismissState,
@@ -45,7 +54,8 @@ fun PersonSwipe(
         backgroundContent = {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .height(60.dp)
                     .background(Color.Red)
                     .padding(12.dp),
                 contentAlignment = Alignment.CenterEnd
@@ -56,6 +66,7 @@ fun PersonSwipe(
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier
+                        .rotate(degrees = progress * 180f)
                 )
             }
         },
@@ -67,6 +78,13 @@ fun PersonSwipe(
                 onDecrement = onDecrement,
                 onIncrement = onIncrement
             )
+        },
+        enableDismissFromStartToEnd = false
+    )
+}
+
+
+
 //            Column(
 //                modifier = Modifier
 //                    .fillMaxWidth()
@@ -81,7 +99,3 @@ fun PersonSwipe(
 //                        .background(Color.Gray)
 //                )
 //            }
-        },
-        enableDismissFromStartToEnd = false
-    )
-}

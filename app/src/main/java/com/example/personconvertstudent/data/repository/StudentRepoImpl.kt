@@ -17,6 +17,14 @@ class StudentRepoImpl @Inject constructor(
         return dao.deleteStudent(id)
     }
 
+    override suspend fun incrAge(id: Int) {
+        dao.incrementAge(id)
+    }
+
+    override suspend fun decrAge(id: Int) {
+        dao.decrementAge(id)
+    }
+
     override fun getAllStudentsWithPeople(): Flow<List<StudentWithPerson>> {
         return dao.getAllStudentsWithPeople()
     }

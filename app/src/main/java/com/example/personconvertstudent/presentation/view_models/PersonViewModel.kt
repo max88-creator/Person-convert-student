@@ -11,10 +11,13 @@ import com.example.personconvertstudent.data.repository.PersonRepository
 import com.example.personconvertstudent.data.repository.StudentRepository
 import com.example.personconvertstudent.dialog.DialogController
 import com.example.personconvertstudent.dialog.DialogEvent
+import com.example.personconvertstudent.utils.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +28,8 @@ class PersonViewModel @Inject constructor(
     private val studentRepository: StudentRepository
 ) : ViewModel(), DialogController {
 
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
     private var selectedPerson: Person? = null
 
     override var dialogTitle: MutableState<String> = mutableStateOf("")
@@ -113,6 +118,13 @@ class PersonViewModel @Inject constructor(
             }
         }
     }
+
+    private fun sendUiEvent(event: UiEvent) {
+        viewModelScope.launch {
+            _uiEvent.send(event)
+        }
+    }
+
 }
 
 

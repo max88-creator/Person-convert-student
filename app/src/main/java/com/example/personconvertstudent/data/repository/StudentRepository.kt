@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface StudentRepository {
     suspend fun insertStudent(item: Student): Long
     suspend fun deleteStudent(id: Int): Int
+    suspend fun incrAge(id: Int)
+    suspend fun decrAge(id: Int)
     fun getAllStudentsWithPeople(): Flow<List<StudentWithPerson>>
 }
 

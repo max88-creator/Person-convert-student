@@ -15,7 +15,8 @@ import com.example.personconvertstudent.ui.theme.DarkText
 
 @Composable
 fun MainDialog(
-    dialogController: DialogController
+    dialogController: DialogController,
+    onStudentNavigate: () -> Unit
 ) {
     if (dialogController.openDialog.value) {
         AlertDialog(
@@ -59,6 +60,7 @@ fun MainDialog(
                 TextButton(
                     onClick = {
                         dialogController.onDialogEvent(DialogEvent.OnConfirm)
+                        onStudentNavigate()
                     }
                 ) {
                     Text(text = "Ok")

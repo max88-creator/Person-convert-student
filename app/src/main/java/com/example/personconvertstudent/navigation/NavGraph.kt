@@ -63,11 +63,7 @@ fun NavGraph(
                 )
             }
             composable<NavigationRoutes.StudentList> {
-                StudentScreen(
-                    onPeopleListNavigate = {
-                        navController.navigate(NavigationRoutes.PersonList)
-                    }
-                )
+                StudentScreen()
             }
         }
     }

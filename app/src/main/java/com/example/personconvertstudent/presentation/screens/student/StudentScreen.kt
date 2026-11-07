@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.personconvertstudent.presentation.view_models.StudentViewModel
+import com.example.personconvertstudent.utils.custom_swipe.StudentSwipe
 
 @Composable
 fun StudentScreen(
     studentViewModel: StudentViewModel = hiltViewModel(),
-    onPeopleListNavigate: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -51,11 +51,16 @@ fun StudentScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 9.dp)
             ) {
-                items(students.value) { student ->
-                    StudentItem(
-                        name = student.name,
-                        age = student.age,
-                        specialization = student.specialization
+                items(
+                    students.value,
+                    key = {it.personId}) { student ->
+                    StudentSwipe(
+                        student.name,
+                        student.age,
+                        student.specialization,
+                        onDelete = { studentViewModel.deleteStudent(student.personId) },
+                        onDecrement = { studentViewModel.decrAge(student.personId)},
+                        onIncrement = { studentViewModel.incrAge(student.personId) },
                     )
                 }
             }

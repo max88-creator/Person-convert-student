@@ -14,6 +14,12 @@ interface StudentDao {
     suspend fun insertStudent(item: Student): Long
     @Query("DELETE FROM students WHERE personId = :id")
     suspend fun deleteStudent(id: Int): Int
+
+    @Query("UPDATE persons SET age = age + 1 WHERE id = :id")
+    suspend fun incrementAge(id: Int)
+
+    @Query("UPDATE persons SET age = age - 1 WHERE id = :id")
+    suspend fun decrementAge(id: Int)
     @Query(
         "SELECT persons.id AS personId, " +
                 "persons.name, persons.age, " +
